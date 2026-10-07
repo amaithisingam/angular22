@@ -1,0 +1,29 @@
+<div class="dashboard-layout">
+  <aside class="sidebar">
+    <a class="brand" routerLink="/dashboard" aria-label="Dashboard home">
+      <span class="brand-mark">AS</span>
+      <span>Workspace</span>
+    </a>
+
+    <nav aria-label="Main navigation">
+      <a class="nav-link active" routerLink="/dashboard" aria-current="page">
+        <span aria-hidden="true">⌂</span>
+        Dashboard
+      </a>
+      <a class="logout-link" routerLink="/login">
+        <span aria-hidden="true">↪</span>
+        Log out
+      </a>
+    </nav>
+
+  </aside>
+
+  <main class="dashboard-main">
+    <section class="welcome-card" aria-labelledby="welcome-title">
+      <div class="welcome-icon" aria-hidden="true">✦</div>
+      <p class="eyebrow">Your workspace</p>
+      <h1 id="welcome-title">Welcome, {{ username() || 'there' }}</h1>
+      <p>You’re logged in and ready to get started.</p>
+    </section>
+  </main>
+</div>

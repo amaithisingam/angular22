@@ -1,0 +1,62 @@
+<main class="login-page">
+  <section class="login-card" aria-labelledby="login-title">
+    <div class="brand-mark" aria-hidden="true">AS</div>
+    <p class="eyebrow">Welcome back</p>
+    <h1 id="login-title">Log in</h1>
+    <p class="description">Enter your email and password to continue.</p>
+
+    <form novalidate (submit)="onSubmit($event)">
+      <label for="email">Email address</label>
+      <input
+        id="email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        placeholder="you@example.com"
+        #emailInput
+        [value]="email()"
+        [attr.aria-invalid]="submitted() && validation().email ? 'true' : null"
+        aria-describedby="email-error"
+        (input)="email.set(emailInput.value)"
+      />
+      @if (submitted() && validation().email) {
+        <p class="form-message" id="email-error" role="alert">{{ validation().email }}</p>
+      }
+
+      <label for="password">Password</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        autocomplete="current-password"
+        placeholder="Your password"
+        #passwordInput
+        [value]="password()"
+        [attr.aria-invalid]="submitted() && validation().password ? 'true' : null"
+        aria-describedby="password-error"
+        (input)="password.set(passwordInput.value)"
+      />
+      @if (submitted() && validation().password) {
+        <p class="form-message" id="password-error" role="alert">{{ validation().password }}</p>
+      }
+
+      <label class="age-confirmation" for="age-confirmed">
+        <input
+          id="age-confirmed"
+          name="ageConfirmed"
+          type="checkbox"
+          #ageCheckbox
+          [checked]="ageConfirmed()"
+          [attr.aria-invalid]="submitted() && validation().age ? 'true' : null"
+          aria-describedby="age-error"
+          (change)="ageConfirmed.set(ageCheckbox.checked)"
+        />
+        <span>I confirm that I am 18 years or older.</span>
+      </label>
+      @if (submitted() && validation().age) {
+        <p class="form-message" id="age-error" role="alert">{{ validation().age }}</p>
+      }
+      <button type="submit">Log in</button>
+    </form>
+  </section>
+</main>
