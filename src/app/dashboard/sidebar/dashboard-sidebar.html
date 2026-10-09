@@ -1,0 +1,46 @@
+<aside class="sidebar">
+  <a class="brand" routerLink="/dashboard" aria-label="Dashboard home">
+    <span class="brand-mark">AS</span>
+    <span>Workspace</span>
+  </a>
+
+  <nav aria-label="Main navigation">
+    <a class="nav-link active" routerLink="/dashboard" aria-current="page">
+      <span aria-hidden="true">⌂</span>
+      Dashboard
+    </a>
+    <button
+      class="details-toggle"
+      type="button"
+      aria-controls="login-details-panel"
+      [attr.aria-expanded]="detailsExpanded()"
+      (click)="detailsExpanded.update(expanded => !expanded)"
+    >
+      <span aria-hidden="true">ⓘ</span>
+      Login details
+    </button>
+    @if (detailsExpanded()) {
+      <section class="login-details" id="login-details-panel" aria-label="Login details">
+        @if (loginDetails(); as details) {
+          <dl>
+            <div>
+              <dt>Email</dt>
+              <dd>{{ details.email }}</dd>
+            </div>
+            <div>
+              <dt>Age confirmation</dt>
+              <dd>{{ details.ageConfirmed ? '18 or older confirmed' : 'Not confirmed' }}</dd>
+            </div>
+          </dl>
+          <p class="privacy-note">Password is not stored or displayed.</p>
+        } @else {
+          <p class="empty-state">No login details are available.</p>
+        }
+      </section>
+    }
+    <a class="logout-link" routerLink="/login">
+      <span aria-hidden="true">↪</span>
+      Log out
+    </a>
+  </nav>
+</aside>

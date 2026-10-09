@@ -1,6 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserSession } from '../user-session';
+import type { LoginFormData } from './login-form-data';
 
 @Component({
   selector: 'app-login-page',
@@ -8,20 +9,23 @@ import { UserSession } from '../user-session';
   styleUrl: './login.css'
 })
 export class LoginPage {
-  protected readonly email = signal('');
-  protected readonly password = signal('');
-  protected readonly ageConfirmed = signal(false);
+  protected readonly formData = signal<LoginFormData>({
+    email: '',
+    password: '',
+    ageConfirmed: false
+  });
   protected readonly submitted = signal(false);
 
   protected readonly validation = computed(() => {
-    const email = this.email().trim();
+    const formData = this.formData();
+    const email = formData.email.trim();
 
     return {
       email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
         ? ''
         : 'Enter a valid email address.',
-      password: this.password().length > 0 ? '' : 'Enter your password.',
-      age: this.ageConfirmed() ? '' : 'Confirm that you are 18 or older.'
+      password: formData.password.length > 0 ? '' : 'Enter your password.',
+      age: formData.ageConfirmed ? '' : 'Confirm that you are 18 or older.'
     };
   });
 
@@ -39,7 +43,10 @@ export class LoginPage {
       return;
     }
 
-    this.userSession.email.set(this.email().trim());
+    this.userSession.loginDetails.set({
+      email: this.formData().email.trim(),
+      ageConfirmed: this.formData().ageConfirmed
+    });
     return this.router.navigate(['/dashboard']);
   }
 }

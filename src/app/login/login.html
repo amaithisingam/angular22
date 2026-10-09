@@ -14,10 +14,10 @@
         autocomplete="email"
         placeholder="you@example.com"
         #emailInput
-        [value]="email()"
+        [value]="formData().email"
         [attr.aria-invalid]="submitted() && validation().email ? 'true' : null"
         aria-describedby="email-error"
-        (input)="email.set(emailInput.value)"
+        (input)="formData.update(value => ({ ...value, email: emailInput.value }))"
       />
       @if (submitted() && validation().email) {
         <p class="form-message" id="email-error" role="alert">{{ validation().email }}</p>
@@ -31,10 +31,10 @@
         autocomplete="current-password"
         placeholder="Your password"
         #passwordInput
-        [value]="password()"
+        [value]="formData().password"
         [attr.aria-invalid]="submitted() && validation().password ? 'true' : null"
         aria-describedby="password-error"
-        (input)="password.set(passwordInput.value)"
+        (input)="formData.update(value => ({ ...value, password: passwordInput.value }))"
       />
       @if (submitted() && validation().password) {
         <p class="form-message" id="password-error" role="alert">{{ validation().password }}</p>
@@ -46,10 +46,10 @@
           name="ageConfirmed"
           type="checkbox"
           #ageCheckbox
-          [checked]="ageConfirmed()"
+          [checked]="formData().ageConfirmed"
           [attr.aria-invalid]="submitted() && validation().age ? 'true' : null"
           aria-describedby="age-error"
-          (change)="ageConfirmed.set(ageCheckbox.checked)"
+          (change)="formData.update(value => ({ ...value, ageConfirmed: ageCheckbox.checked }))"
         />
         <span>I confirm that I am 18 years or older.</span>
       </label>
